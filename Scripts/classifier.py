@@ -107,17 +107,17 @@ Xtest_test_features = feature_extraction.transform(comments_test)
 #######################################################
 
 # Create a parameter grid for selecting the best model
-param_grid = [
-    {
-        'C': [0.1, 1, 10, 100, 1000],
-        'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 
-        'kernel': ['rbf']
-    }
-]
+# param_grid = {'C': [0.1, 1, 5, 8, 10, 100],  
+#               'gamma': [1, 0.5, 0.3, 0.2, 0.1, 0.09, 0.01], 
+#               'degree':[0, 1, 2, 3],
+#               'kernel': ['rbf', 'linear']}
 
 # Fit the training features to the SVM model. Use the vectorized data
 # from TF-IDF vectorizer
-svmModel = GridSearchCV(svm.SVC(), param_grid, refit = True, verbose = 3) 
+# svmModel = GridSearchCV(svm.SVC(), param_grid, refit = True, verbose = 3) 
+
+# Model parameters chosen from cross-validation.
+svmModel = svm.SVC(C=8, degree=0, gamma=0.5)
 svmModel = fitModel(svmModel, Xtrain_train_features, Ytrain_train)
 
 # Predict traning and test dataset

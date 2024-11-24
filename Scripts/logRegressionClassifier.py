@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score
 # nlp=spacy.load('en_core_web_sm')
 
 # Load the dataset
-df = pd.read_csv("train.csv")
+df = pd.read_csv("../Dataset/train.csv")
 
 ######################################
 # Traning and predict on traning data set
@@ -64,7 +64,7 @@ print(f"Accuracy of test data using Log Regression: {accuracyTrain_test}")
 ######################################
 
 # Read the test data set and extract comments column
-df_test = pd.read_csv("test.csv")
+df_test = pd.read_csv("../Dataset/test.csv")
 comments_test = df_test["CONTENT"]
 
 # Use TF-IDF vectorizer to vectorize test data and extract features
@@ -78,4 +78,4 @@ df_test["CLASS"] = predictionTest_test
 df_test = df_test.drop(["AUTHOR", "DATE", "CONTENT", "VIDEO_NAME"], axis = 1)
 
 #Store classified result in a .csv file
-df_test.to_csv("logisticRegressionClass.csv", index=False)
+df_test.to_csv("../Dataset/output/logisticRegressionClass.csv", index=False)
