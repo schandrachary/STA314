@@ -78,7 +78,7 @@ def computeAccuracy(Y1, Y2, testType, modelName):
 #######################################################
 
 # Read the dataset and create a training set with X and Y
-Xtrain, Ytrain = loadTrainingData("train.csv")
+Xtrain, Ytrain = loadTrainingData("../Dataset/train.csv")
 
 # Split the training dataset with 80-20 split
 Xtrain_train, Xtrain_test, Ytrain_train, Ytrain_test = \
@@ -97,7 +97,7 @@ Ytrain_test = Ytrain_test.astype('int')
 # Load test data set and vectorize it
 #######################################################
 
-comments_test, df_test = loadTestData("test.csv")
+comments_test, df_test = loadTestData("../Dataset/test.csv")
 
 # Use TF-IDF vectorizer to vectorize test data and extract features
 Xtest_test_features = feature_extraction.transform(comments_test)
@@ -132,7 +132,7 @@ computeAccuracy(Ytrain_test, predictionTrain_test, "test data", "SVM")
 df_test["CLASS"] = predictFeatures(svmModel, Xtest_test_features)
 
 #Store classified result in a .csv file
-df_test.to_csv("svmClass.csv", index=False)
+df_test.to_csv("../Dataset/output/svmClass.csv", index=False)
 
 #######################################################
 # End SVM Model
@@ -156,7 +156,7 @@ computeAccuracy(Ytrain_test, predictionTrain_test, "test data", "Logistic Regres
 df_test["CLASS"] = predictFeatures(logisticRegModel, Xtest_test_features)
 
 #Store classified result in a .csv file
-df_test.to_csv("logisticRegressionClass.csv", index=False)
+df_test.to_csv("../Dataset/output/logisticRegressionClass.csv", index=False)
 
 #######################################################
 # End Logistic Regression Model
