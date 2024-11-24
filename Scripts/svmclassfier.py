@@ -17,7 +17,7 @@ from sklearn.model_selection import GridSearchCV
 # nlp=spacy.load('en_core_web_sm')
 
 # Load the dataset
-df = pd.read_csv("train.csv")
+df = pd.read_csv("../Dataset/train.csv")
 
 ######################################
 # Training and predict on training data set
@@ -47,15 +47,14 @@ Ytrain_test = Ytrain_test.astype('int')
 # svmModel = svm.SVC() 
 
 # Create a parameter grid for selecting the best SVM model
-param_grid = [
-    {
-        'C': [0.1, 1, 10, 100, 1000],
-        'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 
-        'kernel': ['rbf']
-    }
-]
+param_grid = {'C': [0.1, 1, 5, 8, 10, 100],  
+              'gamma': [1, 0.5, 0.3, 0.2, 0.1, 0.09, 0.01], 
+              'degree':[0, 1, 2, 3],
+              'kernel': ['rbf', 'linear']}
 
-svmModel = GridSearchCV(svm.SVC(), param_grid, refit = True, verbose = 3) 
+# svmModel = GridSearchCV(svm.SVC(), param_grid, refit = True, verbose = 3) 
+# Parameters chosen from cross-validation
+svmModel = svm.SVC(C=8, degree=0, gamma=0.5)
 
 # Fit the training features to the SVM model. Use the vectorized data
 # from TF-IDF vectorizer
@@ -82,7 +81,7 @@ print(f"Accuracy of test data using SVM: {accuracyTrain_test}")
 ######################################
 
 # Read the test data set and extract comments column
-df_test = pd.read_csv("test.csv")
+df_test = pd.read_csv("../Dataset/test.csv")
 comments_test = df_test["CONTENT"]
 
 # Use TF-IDF vectorizer to vectorize test data and extract features
@@ -96,4 +95,4 @@ df_test["CLASS"] = predictionTest_test
 df_test = df_test.drop(["AUTHOR", "DATE", "CONTENT", "VIDEO_NAME"], axis = 1)
 
 #Store classified result in a .csv file
-df_test.to_csv("svmClass.csv", index=False)
+df_test.to_csv("../Dataset/output/svmClass.csv", index=False)
