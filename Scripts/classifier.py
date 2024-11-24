@@ -6,6 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn import svm
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report, confusion_matrix 
 
 
 # Read the CSV file, convert it to a dataframe and return the dataframe
@@ -71,6 +72,7 @@ def predictFeatures(model, X):
 def computeAccuracy(Y1, Y2, testType, modelName):
     score = accuracy_score(Y1, Y2)
     print(f"Accuracy of {testType} using {modelName}: {score}")
+    print(f"Classification report of {testType} with {modelName} model:\n {classification_report(Y1, Y2)} ")
 
 
 #######################################################
@@ -143,7 +145,7 @@ df_test.to_csv("../Dataset/output/svmClass.csv", index=False)
 #######################################################
 
 # Create an instance of a logistic regression model
-logisticRegModel = fitModel(LogisticRegression(), Xtrain_train_features, Ytrain_train)
+logisticRegModel = fitModel(LogisticRegression(C=4.281332398719396, solver='saga'), Xtrain_train_features, Ytrain_train)
 
 # Predict traning and test dataset
 predictionTrain_train = predictFeatures(logisticRegModel, Xtrain_train_features)
